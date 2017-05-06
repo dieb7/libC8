@@ -195,6 +195,9 @@ void Chip8::emulateCycle()
         I = opcode & 0x0FFF;
         pc += 2;
         break;
+    case 0xB000:
+        pc = (opcode & 0x0FFF) + V[0];
+        break;
     default:
         break;
     }

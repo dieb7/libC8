@@ -405,3 +405,14 @@ TEST(Chip8, opANNN)
     CHECK_EQUAL(0x0455, chip8->getI());
     CHECK_EQUAL(0x202, chip8->getPc());
 }
+
+TEST(Chip8, opBNNN)
+{
+    chip8->setMem(0x200, 0xB4);
+    chip8->setMem(0x201, 0xA4);
+
+    chip8->setVn(0, 0x4);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x04A8, chip8->getPc());
+}
