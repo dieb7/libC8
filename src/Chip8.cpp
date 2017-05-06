@@ -88,6 +88,12 @@ void Chip8::emulateCycle()
         st->push(pc);
         pc = opcode & 0x0FFF;
         break;
+    case 0x3000:
+        if (V[(opcode & 0x0F00) >> 8] == (opcode & 0x00FF)) {
+            pc += 2;
+        }
+        pc += 2;
+        break;
     default:
         opcode = 0;
     }

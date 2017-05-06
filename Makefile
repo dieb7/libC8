@@ -17,8 +17,8 @@ SRC_DIRS = \
     src\
     src/*
 
-# to pick specific files (rather than directories) use this:    
-SRC_FILES = 
+# to pick specific files (rather than directories) use this:
+SRC_FILES =
 
 TEST_SRC_DIRS = \
     tests \
@@ -30,13 +30,12 @@ MOCKS_SRC_DIRS = \
 INCLUDE_DIRS =\
   .\
   include \
-  include/* \
   $(CPPUTEST_HOME)/include/ \
   $(CPPUTEST_HOME)/include/Platforms/Gcc\
   mocks
 
-CPPUTEST_WARNINGFLAGS = -Wall -Werror -Wswitch-default 
-CPPUTEST_WARNINGFLAGS += -Wconversion -Wswitch-enum 
+CPPUTEST_WARNINGFLAGS = -Wall -Werror -Wswitch-default
+CPPUTEST_WARNINGFLAGS += -Wswitch-enum
 
 include $(CPPUTEST_HOME)/build/MakefileWorker.mk
 

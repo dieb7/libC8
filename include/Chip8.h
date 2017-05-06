@@ -28,8 +28,8 @@ public:
     unsigned char getGfx(unsigned int address);
     void setGfx(unsigned int address, unsigned char val);
 
-    void stackPush(unsigned short val);
-    unsigned short stackPop();
+    unsigned char getVn(unsigned int index) {return V[0x000F & index];};
+    void setVn(unsigned int index, unsigned char val) {V[0x000F & index] = val;};
 
 private:
 
