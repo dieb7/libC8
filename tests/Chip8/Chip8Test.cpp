@@ -132,6 +132,8 @@ TEST(Chip8, op6XNN)
 
     chip8->emulateCycle();
     CHECK_EQUAL(0x55, chip8->getVn(4));
+
+    CHECK_EQUAL(0x202, chip8->getPc());
 }
 
 TEST(Chip8, op7XNN)
@@ -143,16 +145,232 @@ TEST(Chip8, op7XNN)
 
     chip8->emulateCycle();
     CHECK_EQUAL(0x5A, chip8->getVn(4));
+
+    CHECK_EQUAL(0x202, chip8->getPc());
 }
 
 TEST(Chip8, op8XY0)
 {
     chip8->setMem(0x200, 0x84);
-    chip8->setMem(0x201, 0x55);
+    chip8->setMem(0x201, 0x50);
 
     chip8->setVn(5, 0x05);
 
     chip8->emulateCycle();
     CHECK_EQUAL(0x05, chip8->getVn(4));
+
+    CHECK_EQUAL(0x202, chip8->getPc());
 }
 
+TEST(Chip8, op8XY1)
+{
+    chip8->setMem(0x200, 0x84);
+    chip8->setMem(0x201, 0x51);
+
+    chip8->setVn(4, 0x05);
+    chip8->setVn(5, 0x08);
+    chip8->setVn(0xF, 0xFF);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x0D, chip8->getVn(4));
+
+    CHECK_EQUAL(0x00, chip8->getVn(0xF));
+
+    CHECK_EQUAL(0x202, chip8->getPc());
+}
+
+TEST(Chip8, op8XY2)
+{
+    chip8->setMem(0x200, 0x84);
+    chip8->setMem(0x201, 0x52);
+
+    chip8->setVn(4, 0x05);
+    chip8->setVn(5, 0x06);
+    chip8->setVn(0xF, 0xFF);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x04, chip8->getVn(4));
+
+    CHECK_EQUAL(0x00, chip8->getVn(0xF));
+
+    CHECK_EQUAL(0x202, chip8->getPc());
+}
+
+TEST(Chip8, op8XY3)
+{
+    chip8->setMem(0x200, 0x84);
+    chip8->setMem(0x201, 0x53);
+
+    chip8->setVn(4, 0x06);
+    chip8->setVn(5, 0x04);
+    chip8->setVn(0xF, 0xFF);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x02, chip8->getVn(4));
+
+    CHECK_EQUAL(0x00, chip8->getVn(0xF));
+
+    CHECK_EQUAL(0x202, chip8->getPc());
+}
+
+
+TEST(Chip8, op8XY4)
+{
+    chip8->setMem(0x200, 0x84);
+    chip8->setMem(0x201, 0x54);
+
+    chip8->setVn(4, 0x0A);
+    chip8->setVn(5, 0x04);
+    chip8->setVn(0xF, 0xFF);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x0E, chip8->getVn(4));
+
+    CHECK_EQUAL(0x00, chip8->getVn(0xF));
+
+    CHECK_EQUAL(0x202, chip8->getPc());
+
+
+    chip8->setMem(0x202, 0x84);
+    chip8->setMem(0x203, 0x54);
+
+    chip8->setVn(4, 0xFF);
+    chip8->setVn(5, 0x0F);
+    chip8->setVn(0xF, 0xFF);
+
+    chip8->emulateCycle();
+
+    CHECK_EQUAL(0x0E, chip8->getVn(4));
+
+    CHECK_EQUAL(0x01, chip8->getVn(0xF));
+
+    CHECK_EQUAL(0x204, chip8->getPc());
+}
+
+TEST(Chip8, op8XY5)
+{
+    chip8->setMem(0x200, 0x84);
+    chip8->setMem(0x201, 0x55);
+
+    chip8->setVn(4, 0x0A);
+    chip8->setVn(5, 0x04);
+    chip8->setVn(0xF, 0xFF);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x06, chip8->getVn(4));
+
+    CHECK_EQUAL(0x00, chip8->getVn(0xF));
+
+    CHECK_EQUAL(0x202, chip8->getPc());
+
+
+    chip8->setMem(0x202, 0x84);
+    chip8->setMem(0x203, 0x55);
+
+    chip8->setVn(4, 0x06);
+    chip8->setVn(5, 0x0F);
+    chip8->setVn(0xF, 0xFF);
+
+    chip8->emulateCycle();
+
+    CHECK_EQUAL(0xF7, chip8->getVn(4));
+
+    CHECK_EQUAL(0x01, chip8->getVn(0xF));
+
+    CHECK_EQUAL(0x204, chip8->getPc());
+}
+
+TEST(Chip8, op8XY6)
+{
+    chip8->setMem(0x200, 0x84);
+    chip8->setMem(0x201, 0x56);
+
+    chip8->setVn(4, 0x0A);
+    chip8->setVn(0xF, 0xFF);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x05, chip8->getVn(4));
+
+    CHECK_EQUAL(0x00, chip8->getVn(0xF));
+
+    CHECK_EQUAL(0x202, chip8->getPc());
+
+
+    chip8->setMem(0x202, 0x84);
+    chip8->setMem(0x203, 0x56);
+
+    chip8->setVn(4, 0x07);
+    chip8->setVn(0xF, 0xFF);
+
+    chip8->emulateCycle();
+
+    CHECK_EQUAL(0x03, chip8->getVn(4));
+
+    CHECK_EQUAL(0x01, chip8->getVn(0xF));
+
+    CHECK_EQUAL(0x204, chip8->getPc());
+}
+
+TEST(Chip8, op8XY7)
+{
+    chip8->setMem(0x200, 0x84);
+    chip8->setMem(0x201, 0x57);
+
+    chip8->setVn(5, 0x0A);
+    chip8->setVn(4, 0x04);
+    chip8->setVn(0xF, 0xFF);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x06, chip8->getVn(4));
+
+    CHECK_EQUAL(0x00, chip8->getVn(0xF));
+
+    CHECK_EQUAL(0x202, chip8->getPc());
+
+
+    chip8->setMem(0x202, 0x84);
+    chip8->setMem(0x203, 0x57);
+
+    chip8->setVn(5, 0x06);
+    chip8->setVn(4, 0x0F);
+    chip8->setVn(0xF, 0xFF);
+
+    chip8->emulateCycle();
+
+    CHECK_EQUAL(0xF7, chip8->getVn(4));
+
+    CHECK_EQUAL(0x01, chip8->getVn(0xF));
+
+    CHECK_EQUAL(0x204, chip8->getPc());
+}
+
+TEST(Chip8, op8XYE)
+{
+    chip8->setMem(0x200, 0x84);
+    chip8->setMem(0x201, 0x5E);
+
+    chip8->setVn(4, 0x0A);
+    chip8->setVn(0xF, 0xFF);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x14, chip8->getVn(4));
+
+    CHECK_EQUAL(0x00, chip8->getVn(0xF));
+
+    CHECK_EQUAL(0x202, chip8->getPc());
+
+
+    chip8->setMem(0x202, 0x84);
+    chip8->setMem(0x203, 0x5E);
+
+    chip8->setVn(4, 0xF0);
+    chip8->setVn(0xF, 0xFF);
+
+    chip8->emulateCycle();
+
+    CHECK_EQUAL(0xE0, chip8->getVn(4));
+
+    CHECK_EQUAL(0x01, chip8->getVn(0xF));
+
+    CHECK_EQUAL(0x204, chip8->getPc());
+}

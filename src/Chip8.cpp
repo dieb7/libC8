@@ -108,14 +108,86 @@ void Chip8::emulateCycle()
         break;
     case 0x6000:
         V[(opcode & 0x0F00) >> 8] = opcode & 0x00FF;
+        pc += 2;
         break;
     case 0x7000:
         V[(opcode & 0x0F00) >> 8] += opcode & 0x00FF;
+        pc += 2;
         break;
     case 0x8000:
-        V[(opcode & 0x0F00) >> 8] = V[(opcode & 0x00F0) >> 4] ;
+        switch (opcode & 0x000F) {
+        case 0x0:
+            V[(opcode & 0x0F00) >> 8] = V[(opcode & 0x00F0) >> 4] ;
+            pc += 2;
+            break;
+        case 0x1:
+            V[(opcode & 0x0F00) >> 8] |= V[(opcode & 0x00F0) >> 4] ;
+            V[0xF] = 0;
+            pc += 2;
+            break;
+        case 0x2:
+            V[(opcode & 0x0F00) >> 8] &= V[(opcode & 0x00F0) >> 4] ;
+            V[0xF] = 0;
+            pc += 2;
+            break;
+        case 0x3:
+            V[(opcode & 0x0F00) >> 8] ^= V[(opcode & 0x00F0) >> 4] ;
+            V[0xF] = 0;
+            pc += 2;
+            break;
+        case 0x4:
+            {
+                unsigned int x = (opcode & 0x0F00) >> 8;
+                unsigned int y = (opcode & 0x00F0) >> 4;
+                unsigned int temp = V[x] + V[y];
+                V[x] = temp & 0x00FF;
+                V[0xF] = (temp > 0xFF) ? 1 : 0;
+                pc += 2;
+            }
+            break;
+        case 0x5:
+            {
+                unsigned int x = (opcode & 0x0F00) >> 8;
+                unsigned int y = (opcode & 0x00F0) >> 4;
+                unsigned int temp = V[x] - V[y];
+                V[x] = temp & 0x00FF;
+                V[0xF] = (temp > 0xFF) ? 1 : 0;
+                pc += 2;
+            }
+            break;
+        case 0x6:
+            {
+                unsigned char x = (opcode & 0x0F00) >> 8;
+                V[0xF] = (V[x] & 0x01);
+                V[x] = V[x] >> 1;
+                pc += 2;
+            }
+            break;
+        case 0x7:
+            {
+                unsigned int x = (opcode & 0x0F00) >> 8;
+                unsigned int y = (opcode & 0x00F0) >> 4;
+                unsigned int temp = V[y] - V[x];
+                V[x] = temp & 0x00FF;
+                V[0xF] = (temp > 0xFF) ? 1 : 0;
+                pc += 2;
+            }
+            break;
+        case 0xE:
+            {
+                unsigned char x = (opcode & 0x0F00) >> 8;
+                V[0xF] = (V[x] & 0x80) >> 7;
+                V[x] = V[x] << 1;
+                pc += 2;
+            }
+            break;
+        default:
+            break;
+        }
+
+
         break;
     default:
-        opcode = 0;
+        break;
     }
 }
