@@ -112,6 +112,9 @@ void Chip8::emulateCycle()
     case 0x7000:
         V[(opcode & 0x0F00) >> 8] += opcode & 0x00FF;
         break;
+    case 0x8000:
+        V[(opcode & 0x0F00) >> 8] = V[(opcode & 0x00F0) >> 4] ;
+        break;
     default:
         opcode = 0;
     }

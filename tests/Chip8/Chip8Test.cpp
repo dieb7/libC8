@@ -145,3 +145,14 @@ TEST(Chip8, op7XNN)
     CHECK_EQUAL(0x5A, chip8->getVn(4));
 }
 
+TEST(Chip8, op8XY0)
+{
+    chip8->setMem(0x200, 0x84);
+    chip8->setMem(0x201, 0x55);
+
+    chip8->setVn(5, 0x05);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x05, chip8->getVn(4));
+}
+
