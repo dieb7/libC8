@@ -94,6 +94,12 @@ void Chip8::emulateCycle()
         }
         pc += 2;
         break;
+    case 0x4000:
+        if (V[(opcode & 0x0F00) >> 8] != (opcode & 0x00FF)) {
+            pc += 2;
+        }
+        pc += 2;
+        break;
     default:
         opcode = 0;
     }
