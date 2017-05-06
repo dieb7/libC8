@@ -184,8 +184,12 @@ void Chip8::emulateCycle()
         default:
             break;
         }
-
-
+        break;
+    case 0x9000:
+        if (V[(opcode & 0x0F00) >> 8] != V[(opcode & 0x00F0) >> 4]) {
+            pc += 2;
+        }
+        pc += 2;
         break;
     default:
         break;

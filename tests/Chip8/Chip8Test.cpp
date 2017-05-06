@@ -374,3 +374,24 @@ TEST(Chip8, op8XYE)
 
     CHECK_EQUAL(0x204, chip8->getPc());
 }
+
+TEST(Chip8, op9XY0)
+{
+    chip8->setMem(0x200, 0x94);
+    chip8->setMem(0x201, 0x55);
+
+    chip8->setVn(4, 0xA0);
+    chip8->setVn(5, 0xA5);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x0204, chip8->getPc());
+
+    chip8->setMem(0x204, 0x94);
+    chip8->setMem(0x205, 0x55);
+
+    chip8->setVn(4, 0xA5);
+    chip8->setVn(5, 0xA5);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x0206, chip8->getPc());
+}
