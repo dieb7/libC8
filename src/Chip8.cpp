@@ -7,13 +7,6 @@ void clearMem(unsigned char * buff, unsigned int buffSize)
     }
 }
 
-void clearMem(unsigned short * buff, unsigned int buffSize)
-{
-    for (unsigned int i = 0; i < buffSize; i++) {
-        buff[i] = 0;
-    }
-}
-
 Chip8::Chip8()
 {
     st = NULL;
@@ -22,7 +15,6 @@ Chip8::Chip8()
     opcode = 0;
     I = 0;
 
-    clearMem(gfx, sizeof(gfx) / sizeof(gfx[0]));
     clearMem(key, sizeof(key) / sizeof(key[0]));
     clearMem(mem, sizeof(mem) / sizeof(mem[0]));
 
@@ -51,21 +43,6 @@ void Chip8::setMem(unsigned int address, unsigned char val)
     }
 }
 
-unsigned char Chip8::getGfx(unsigned int address)
-{
-    if (address < 2048) {
-        return gfx[address];
-    }
-    return 0;
-}
-
-void Chip8::setGfx(unsigned int address, unsigned char val)
-{
-    if (address < 2048) {
-        gfx[address] = val;
-    }
-}
-
 void Chip8::emulateCycle()
 {
     // fetch opcode
@@ -75,7 +52,7 @@ void Chip8::emulateCycle()
     switch(opcode & 0xF000) {
     case 0x0000:
         if (opcode == 0x00E0) {
-            clearMem(gfx, sizeof(gfx) / sizeof(gfx[0]));
+            disp->Clear();
         } else if (opcode == 0x00EE) {
             pc = st->pop();
             pc += 2;

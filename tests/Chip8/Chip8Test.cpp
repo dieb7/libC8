@@ -7,15 +7,19 @@ TEST_GROUP(Chip8)
 {
     Chip8* chip8;
     C8Stack* st;
+    C8Display* disp;
 
     void setup() {
         chip8 = new Chip8();
         st = new C8Stack();
+        disp = new C8Display();
         chip8->setStack(st);
+        chip8->setDisplay(disp);
     }
     void teardown() {
         delete chip8;
         delete st;
+        delete disp;
     }
 };
 
@@ -24,12 +28,13 @@ TEST(Chip8, op00E0)
     chip8->setMem(0x200, 0x00);
     chip8->setMem(0x201, 0xE0);
 
-    chip8->setGfx(0x201, 246);
-    CHECK(chip8->getGfx(0x201) == 246);
+    disp->Draw(2, 4, 0x80);
+    CHECK(disp->getPixel(2,4));
 
     chip8->emulateCycle();
 
-    CHECK_EQUAL(0, chip8->getGfx(0x201));
+
+    CHECK(!disp->getPixel(2,4));
 }
 
 TEST(Chip8, op00EE)
@@ -413,4 +418,14 @@ TEST(Chip8, opBNNN)
 
     chip8->emulateCycle();
     CHECK_EQUAL(0x04A8, chip8->getPc());
+}
+
+TEST(Chip8, opCXNN)
+{
+    /**< @todo find a way to test this opcode */
+}
+
+TEST(Chip8, opDXYN)
+{
+
 }

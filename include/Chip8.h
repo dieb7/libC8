@@ -2,6 +2,7 @@
 #define D_Chip8_H
 
 #include "C8Stack.h"
+#include "C8Display.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -18,6 +19,11 @@ public:
     void setStack(C8Stack * s)
     {
         st = s;
+    };
+
+    void setDisplay(C8Display * d)
+    {
+        disp = d;
     };
 
     void emulateCycle();
@@ -63,7 +69,7 @@ private:
     unsigned char  mem[0xE00];
 
     unsigned short pc;
-    unsigned char  gfx[2048];
+    C8Display * disp;
     unsigned char  key[16];
     unsigned short opcode;
     unsigned short I;
