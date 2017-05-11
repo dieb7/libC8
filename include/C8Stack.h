@@ -8,15 +8,15 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 class C8Stack
-  {
-  public:
+{
+public:
     explicit C8Stack();
     virtual ~C8Stack();
 
     bool push(unsigned short val);
     unsigned short pop();
 
-  private:
+private:
 
 //    C8Stack(const C8Stack&);
 //    C8Stack& operator=(const C8Stack&);
@@ -24,6 +24,6 @@ class C8Stack
     int sp;
     unsigned short st[16];
 
-  };
+};
 
 #endif  // D_C8Stack_H

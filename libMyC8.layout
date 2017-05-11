@@ -7,34 +7,49 @@
 			<Cursor1 position="198" topLine="0" />
 		</Cursor>
 	</File>
+	<File name="tests/Chip8/Chip8Test.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7534" topLine="395" />
+		</Cursor>
+	</File>
 	<File name="include/C8Stack.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="476" topLine="2" />
+			<Cursor1 position="476" topLine="1" />
 		</Cursor>
 	</File>
-	<File name="tests/Chip8/Chip8Test.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include/Chip8.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1122" topLine="43" />
+			<Cursor1 position="933" topLine="22" />
 		</Cursor>
 	</File>
-	<File name="src/Chip8.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1725" topLine="71" />
-		</Cursor>
-	</File>
-	<File name="include/Chip8.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Makefile" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Makefile" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="656" topLine="18" />
 		</Cursor>
 	</File>
 	<File name="tests/Chip8/C8StackTest.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1268" topLine="47" />
+			<Cursor1 position="1268" topLine="37" />
+		</Cursor>
+	</File>
+	<File name="tests/Chip8/C8DisplayTest.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2906" topLine="117" />
+		</Cursor>
+	</File>
+	<File name="include/C8Display.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="419" topLine="4" />
+		</Cursor>
+	</File>
+	<File name="src/Chip8.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4875" topLine="200" />
+		</Cursor>
+	</File>
+	<File name="src/C8Display.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="500" topLine="21" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

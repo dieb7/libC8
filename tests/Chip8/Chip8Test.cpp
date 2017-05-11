@@ -8,14 +8,12 @@ TEST_GROUP(Chip8)
     Chip8* chip8;
     C8Stack* st;
 
-    void setup()
-    {
+    void setup() {
         chip8 = new Chip8();
         st = new C8Stack();
         chip8->setStack(st);
     }
-    void teardown()
-    {
+    void teardown() {
         delete chip8;
         delete st;
     }

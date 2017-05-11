@@ -23,13 +23,15 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="Makefile" />
+		<Unit filename="include/C8Display.h" />
 		<Unit filename="include/C8Stack.h" />
 		<Unit filename="include/Chip8.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/C8Display.cpp" />
 		<Unit filename="src/C8Stack.cpp" />
 		<Unit filename="src/Chip8.cpp" />
-		<Unit filename="src/main.cpp" />
 		<Unit filename="tests/AllTests.cpp" />
+		<Unit filename="tests/Chip8/C8DisplayTest.cpp" />
 		<Unit filename="tests/Chip8/C8StackTest.cpp" />
 		<Unit filename="tests/Chip8/Chip8Test.cpp" />
 		<Extensions>

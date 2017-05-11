@@ -135,52 +135,47 @@ void Chip8::emulateCycle()
             V[0xF] = 0;
             pc += 2;
             break;
-        case 0x4:
-            {
-                unsigned int x = (opcode & 0x0F00) >> 8;
-                unsigned int y = (opcode & 0x00F0) >> 4;
-                unsigned int temp = V[x] + V[y];
-                V[x] = temp & 0x00FF;
-                V[0xF] = (temp > 0xFF) ? 1 : 0;
-                pc += 2;
-            }
-            break;
-        case 0x5:
-            {
-                unsigned int x = (opcode & 0x0F00) >> 8;
-                unsigned int y = (opcode & 0x00F0) >> 4;
-                unsigned int temp = V[x] - V[y];
-                V[x] = temp & 0x00FF;
-                V[0xF] = (temp > 0xFF) ? 1 : 0;
-                pc += 2;
-            }
-            break;
-        case 0x6:
-            {
-                unsigned char x = (opcode & 0x0F00) >> 8;
-                V[0xF] = (V[x] & 0x01);
-                V[x] = V[x] >> 1;
-                pc += 2;
-            }
-            break;
-        case 0x7:
-            {
-                unsigned int x = (opcode & 0x0F00) >> 8;
-                unsigned int y = (opcode & 0x00F0) >> 4;
-                unsigned int temp = V[y] - V[x];
-                V[x] = temp & 0x00FF;
-                V[0xF] = (temp > 0xFF) ? 1 : 0;
-                pc += 2;
-            }
-            break;
-        case 0xE:
-            {
-                unsigned char x = (opcode & 0x0F00) >> 8;
-                V[0xF] = (V[x] & 0x80) >> 7;
-                V[x] = V[x] << 1;
-                pc += 2;
-            }
-            break;
+        case 0x4: {
+            unsigned int x = (opcode & 0x0F00) >> 8;
+            unsigned int y = (opcode & 0x00F0) >> 4;
+            unsigned int temp = V[x] + V[y];
+            V[x] = temp & 0x00FF;
+            V[0xF] = (temp > 0xFF) ? 1 : 0;
+            pc += 2;
+        }
+        break;
+        case 0x5: {
+            unsigned int x = (opcode & 0x0F00) >> 8;
+            unsigned int y = (opcode & 0x00F0) >> 4;
+            unsigned int temp = V[x] - V[y];
+            V[x] = temp & 0x00FF;
+            V[0xF] = (temp > 0xFF) ? 1 : 0;
+            pc += 2;
+        }
+        break;
+        case 0x6: {
+            unsigned char x = (opcode & 0x0F00) >> 8;
+            V[0xF] = (V[x] & 0x01);
+            V[x] = V[x] >> 1;
+            pc += 2;
+        }
+        break;
+        case 0x7: {
+            unsigned int x = (opcode & 0x0F00) >> 8;
+            unsigned int y = (opcode & 0x00F0) >> 4;
+            unsigned int temp = V[y] - V[x];
+            V[x] = temp & 0x00FF;
+            V[0xF] = (temp > 0xFF) ? 1 : 0;
+            pc += 2;
+        }
+        break;
+        case 0xE: {
+            unsigned char x = (opcode & 0x0F00) >> 8;
+            V[0xF] = (V[x] & 0x80) >> 7;
+            V[x] = V[x] << 1;
+            pc += 2;
+        }
+        break;
         default:
             break;
         }
@@ -197,6 +192,10 @@ void Chip8::emulateCycle()
         break;
     case 0xB000:
         pc = (opcode & 0x0FFF) + V[0];
+        break;
+    case 0xC000:
+        V[(opcode & 0x0F00) >> 8] = (rand() % 0xFF) & (opcode & 0x00FF);
+        pc += 2;
         break;
     default:
         break;

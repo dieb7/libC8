@@ -15,21 +15,45 @@ public:
     explicit Chip8();
     virtual ~Chip8();
 
-    void setStack(C8Stack * s) {st = s;};
+    void setStack(C8Stack * s)
+    {
+        st = s;
+    };
 
     void emulateCycle();
 
     unsigned char getMem(unsigned int address);
     void setMem(unsigned int address, unsigned char val);
 
-    unsigned short getPc() {return pc;};
-    void setPc(unsigned short val) {pc = val;};
+    unsigned short getPc()
+    {
+        return pc;
+    };
+    void setPc(unsigned short val)
+    {
+        pc = val;
+    };
 
     unsigned char getGfx(unsigned int address);
     void setGfx(unsigned int address, unsigned char val);
 
-    unsigned char getVn(unsigned int index) {return V[0x000F & index];};
-    void setVn(unsigned int index, unsigned char val) {V[0x000F & index] = val;};
+    unsigned char getVn(unsigned int index)
+    {
+        return V[0x000F & index];
+    };
+    void setVn(unsigned int index, unsigned char val)
+    {
+        V[0x000F & index] = val;
+    };
+
+    void setI(unsigned short val)
+    {
+        I = val & 0x0FFF;
+    };
+    unsigned short getI()
+    {
+        return I;
+    };
 
 private:
 
