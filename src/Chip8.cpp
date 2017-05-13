@@ -15,7 +15,6 @@ Chip8::Chip8()
     opcode = 0;
     I = 0;
 
-    clearMem(key, sizeof(key) / sizeof(key[0]));
     clearMem(mem, sizeof(mem) / sizeof(mem[0]));
 
     delayTimer = 0;
@@ -174,23 +173,35 @@ void Chip8::emulateCycle()
         V[(opcode & 0x0F00) >> 8] = (rand() % 0xFF) & (opcode & 0x00FF);
         pc += 2;
         break;
-    case 0xD000:
-        {
-            unsigned int x = (opcode & 0x0F00) >> 8;
-            unsigned int y = (opcode & 0x00F0) >> 4;
-            unsigned int n = (opcode & 0x000F);
+    case 0xD000: {
+        unsigned int x = (opcode & 0x0F00) >> 8;
+        unsigned int y = (opcode & 0x00F0) >> 4;
+        unsigned int n = (opcode & 0x000F);
 
-            bool flip = false;
+        bool flip = false;
 
-            for (unsigned int i = 0; i < n; i++) {
-                flip |= disp->Draw(V[x], V[y] + i, getMem(I + i));
-            }
-
-            V[0xF] = flip ? 1 : 0;
-
-            pc += 2;
+        for (unsigned int i = 0; i < n; i++) {
+            flip |= disp->Draw(V[x], V[y] + i, getMem(I + i));
         }
-        break;
+
+        V[0xF] = flip ? 1 : 0;
+
+        pc += 2;
+    }
+    break;
+    case 0xE000: {
+        switch(opcode & 0x00FF) {
+        case 0x009E:
+            if (key->Get(getVn((opcode & 0x0F00) >> 8))) {
+                pc += 2;
+            }
+            break;
+        default:
+            break;
+        }
+        pc += 2;
+    }
+    break;
     default:
         break;
     }

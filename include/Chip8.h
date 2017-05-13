@@ -3,6 +3,7 @@
 
 #include "C8Stack.h"
 #include "C8Display.h"
+#include "C8Key.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -26,6 +27,11 @@ public:
         disp = d;
     };
 
+    void setKey(C8Key * k)
+    {
+        key = k;
+    };
+
     void emulateCycle();
 
     unsigned char getMem(unsigned int address);
@@ -39,9 +45,6 @@ public:
     {
         pc = val;
     };
-
-    unsigned char getGfx(unsigned int address);
-    void setGfx(unsigned int address, unsigned char val);
 
     unsigned char getVn(unsigned int index)
     {
@@ -70,7 +73,7 @@ private:
 
     unsigned short pc;
     C8Display * disp;
-    unsigned char  key[16];
+    C8Key * key;
     unsigned short opcode;
     unsigned short I;
 
@@ -78,9 +81,6 @@ private:
     C8Stack * st;
     unsigned char  delayTimer;
     unsigned char  soundTimer;
-
-//    void (Chip8::*ops)(void);
-
 };
 
 #endif  // D_Chip8_H

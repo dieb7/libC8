@@ -8,18 +8,22 @@ TEST_GROUP(Chip8)
     Chip8* chip8;
     C8Stack* st;
     C8Display* disp;
+    C8Key* key;
 
     void setup() {
         chip8 = new Chip8();
         st = new C8Stack();
         disp = new C8Display();
+        key = new C8Key();
         chip8->setStack(st);
         chip8->setDisplay(disp);
+        chip8->setKey(key);
     }
     void teardown() {
         delete chip8;
         delete st;
         delete disp;
+        delete key;
     }
 };
 
@@ -477,4 +481,27 @@ TEST(Chip8, opDXYN)
     CHECK(!disp->getPixel(8, 0));
 
     CHECK_EQUAL(1, chip8->getVn(0xF));
+}
+
+TEST(Chip8, opEX9E)
+{
+    chip8->setMem(0x200, 0xE1);
+    chip8->setMem(0x201, 0x9E);
+
+    key->Push(0x2);
+
+    chip8->setVn(0x1, 0x2);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x204, chip8->getPc());
+
+    chip8->setMem(0x204, 0xE2);
+    chip8->setMem(0x201, 0x9E);
+
+    key->Release(0x3);
+
+    chip8->setVn(0x2, 0x3);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x206, chip8->getPc());
 }
