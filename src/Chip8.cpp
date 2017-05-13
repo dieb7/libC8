@@ -213,7 +213,18 @@ void Chip8::emulateCycle()
             setVn((opcode & 0x0F00) >> 8, getDelayTimer());
             break;
         case 0x000A:
-
+            {
+                int i = 0;
+                for (; i < 0xF; i++) {
+                    if (key->Get(i)) {
+                        setVn((opcode & 0x0F00) >> 8, i);
+                        break;
+                    }
+                }
+                if (i == 0xF) {
+                    pc -= 2;
+                }
+            }
             break;
         case 0x0015:
 
