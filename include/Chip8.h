@@ -1,6 +1,7 @@
 #ifndef D_Chip8_H
 #define D_Chip8_H
 
+#include "C8Mem.h"
 #include "C8Stack.h"
 #include "C8Display.h"
 #include "C8Key.h"
@@ -16,6 +17,11 @@ class Chip8
 public:
     explicit Chip8();
     virtual ~Chip8();
+
+    void setMem(C8Mem * m)
+    {
+        mem = m;
+    };
 
     void setStack(C8Stack * s)
     {
@@ -33,9 +39,6 @@ public:
     };
 
     void emulateCycle();
-
-    unsigned char getMem(unsigned int address);
-    void setMem(unsigned int address, unsigned char val);
 
     unsigned short getPc()
     {
@@ -87,7 +90,7 @@ private:
     Chip8(const Chip8&);
     Chip8& operator=(const Chip8&);
 
-    unsigned char  mem[0xE00];
+    C8Mem * mem;
 
     unsigned short pc;
     C8Display * disp;

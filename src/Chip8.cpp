@@ -15,8 +15,6 @@ Chip8::Chip8()
     opcode = 0;
     I = 0;
 
-    clearMem(mem, sizeof(mem) / sizeof(mem[0]));
-
     delayTimer = 0;
     soundTimer = 0;
 }
@@ -26,26 +24,10 @@ Chip8::~Chip8()
 
 }
 
-unsigned char Chip8::getMem(unsigned int address)
-{
-    if (address > 0x1FF && address < 0x1000) {
-        return mem[address - 0x200];
-    }
-
-    return 0;
-}
-
-void Chip8::setMem(unsigned int address, unsigned char val)
-{
-    if (address > 0x1FF && address < 0x1000) {
-        mem[address - 0x200] = val;
-    }
-}
-
 void Chip8::emulateCycle()
 {
     // fetch opcode
-    opcode = (unsigned short)(getMem(pc) << 8 | getMem(pc + 1));
+    opcode = (unsigned short)(mem->Get(pc) << 8 | mem->Get(pc + 1));
 
     // decode opcode
     switch(opcode & 0xF000) {
@@ -181,7 +163,7 @@ void Chip8::emulateCycle()
         bool flip = false;
 
         for (unsigned int i = 0; i < n; i++) {
-            flip |= disp->Draw(V[x], V[y] + i, getMem(I + i));
+            flip |= disp->Draw(V[x], V[y] + i, mem->Get(I + i));
         }
 
         V[0xF] = flip ? 1 : 0;

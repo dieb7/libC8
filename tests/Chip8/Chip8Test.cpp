@@ -6,21 +6,25 @@
 TEST_GROUP(Chip8)
 {
     Chip8* chip8;
+    C8Mem* mem;
     C8Stack* st;
     C8Display* disp;
     C8Key* key;
 
     void setup() {
         chip8 = new Chip8();
+        mem = new C8Mem();
         st = new C8Stack();
         disp = new C8Display();
         key = new C8Key();
+        chip8->setMem(mem);
         chip8->setStack(st);
         chip8->setDisplay(disp);
         chip8->setKey(key);
     }
     void teardown() {
         delete chip8;
+        delete mem;
         delete st;
         delete disp;
         delete key;
@@ -29,8 +33,8 @@ TEST_GROUP(Chip8)
 
 TEST(Chip8, op00E0)
 {
-    chip8->setMem(0x200, 0x00);
-    chip8->setMem(0x201, 0xE0);
+    mem->Set(0x200, 0x00);
+    mem->Set(0x201, 0xE0);
 
     disp->Draw(2, 4, 0x80);
     CHECK(disp->getPixel(2,4));
@@ -45,8 +49,8 @@ TEST(Chip8, op00EE)
 {
     st->push(0x300);
 
-    chip8->setMem(0x200, 0x00);
-    chip8->setMem(0x201, 0xEE);
+    mem->Set(0x200, 0x00);
+    mem->Set(0x201, 0xEE);
 
     chip8->emulateCycle();
 
@@ -55,8 +59,8 @@ TEST(Chip8, op00EE)
 
 TEST(Chip8, op1NNN)
 {
-    chip8->setMem(0x200, 0x14);
-    chip8->setMem(0x201, 0xA5);
+    mem->Set(0x200, 0x14);
+    mem->Set(0x201, 0xA5);
 
     chip8->emulateCycle();
     CHECK_EQUAL(0x04A5, chip8->getPc());
@@ -64,8 +68,8 @@ TEST(Chip8, op1NNN)
 
 TEST(Chip8, op2NNN)
 {
-    chip8->setMem(0x200, 0x24);
-    chip8->setMem(0x201, 0xA5);
+    mem->Set(0x200, 0x24);
+    mem->Set(0x201, 0xA5);
 
     chip8->emulateCycle();
     CHECK_EQUAL(0x04A5, chip8->getPc());
@@ -75,16 +79,16 @@ TEST(Chip8, op2NNN)
 
 TEST(Chip8, op3NNN)
 {
-    chip8->setMem(0x200, 0x34);
-    chip8->setMem(0x201, 0xA5);
+    mem->Set(0x200, 0x34);
+    mem->Set(0x201, 0xA5);
 
     chip8->setVn(4, 0xA5);
 
     chip8->emulateCycle();
     CHECK_EQUAL(0x0204, chip8->getPc());
 
-    chip8->setMem(0x204, 0x34);
-    chip8->setMem(0x205, 0xA5);
+    mem->Set(0x204, 0x34);
+    mem->Set(0x205, 0xA5);
 
     chip8->setVn(4, 0xA0);
 
@@ -94,16 +98,16 @@ TEST(Chip8, op3NNN)
 
 TEST(Chip8, op4NNN)
 {
-    chip8->setMem(0x200, 0x44);
-    chip8->setMem(0x201, 0xA5);
+    mem->Set(0x200, 0x44);
+    mem->Set(0x201, 0xA5);
 
     chip8->setVn(4, 0xA0);
 
     chip8->emulateCycle();
     CHECK_EQUAL(0x0204, chip8->getPc());
 
-    chip8->setMem(0x204, 0x44);
-    chip8->setMem(0x205, 0xA5);
+    mem->Set(0x204, 0x44);
+    mem->Set(0x205, 0xA5);
 
     chip8->setVn(4, 0xA5);
 
@@ -113,8 +117,8 @@ TEST(Chip8, op4NNN)
 
 TEST(Chip8, op5NNN)
 {
-    chip8->setMem(0x200, 0x54);
-    chip8->setMem(0x201, 0x55);
+    mem->Set(0x200, 0x54);
+    mem->Set(0x201, 0x55);
 
     chip8->setVn(4, 0xA5);
     chip8->setVn(5, 0xA5);
@@ -122,8 +126,8 @@ TEST(Chip8, op5NNN)
     chip8->emulateCycle();
     CHECK_EQUAL(0x0204, chip8->getPc());
 
-    chip8->setMem(0x204, 0x54);
-    chip8->setMem(0x205, 0x55);
+    mem->Set(0x204, 0x54);
+    mem->Set(0x205, 0x55);
 
     chip8->setVn(4, 0xA0);
     chip8->setVn(5, 0xA5);
@@ -134,8 +138,8 @@ TEST(Chip8, op5NNN)
 
 TEST(Chip8, op6XNN)
 {
-    chip8->setMem(0x200, 0x64);
-    chip8->setMem(0x201, 0x55);
+    mem->Set(0x200, 0x64);
+    mem->Set(0x201, 0x55);
 
     chip8->emulateCycle();
     CHECK_EQUAL(0x55, chip8->getVn(4));
@@ -145,8 +149,8 @@ TEST(Chip8, op6XNN)
 
 TEST(Chip8, op7XNN)
 {
-    chip8->setMem(0x200, 0x74);
-    chip8->setMem(0x201, 0x55);
+    mem->Set(0x200, 0x74);
+    mem->Set(0x201, 0x55);
 
     chip8->setVn(4, 0x05);
 
@@ -158,8 +162,8 @@ TEST(Chip8, op7XNN)
 
 TEST(Chip8, op8XY0)
 {
-    chip8->setMem(0x200, 0x84);
-    chip8->setMem(0x201, 0x50);
+    mem->Set(0x200, 0x84);
+    mem->Set(0x201, 0x50);
 
     chip8->setVn(5, 0x05);
 
@@ -171,8 +175,8 @@ TEST(Chip8, op8XY0)
 
 TEST(Chip8, op8XY1)
 {
-    chip8->setMem(0x200, 0x84);
-    chip8->setMem(0x201, 0x51);
+    mem->Set(0x200, 0x84);
+    mem->Set(0x201, 0x51);
 
     chip8->setVn(4, 0x05);
     chip8->setVn(5, 0x08);
@@ -188,8 +192,8 @@ TEST(Chip8, op8XY1)
 
 TEST(Chip8, op8XY2)
 {
-    chip8->setMem(0x200, 0x84);
-    chip8->setMem(0x201, 0x52);
+    mem->Set(0x200, 0x84);
+    mem->Set(0x201, 0x52);
 
     chip8->setVn(4, 0x05);
     chip8->setVn(5, 0x06);
@@ -205,8 +209,8 @@ TEST(Chip8, op8XY2)
 
 TEST(Chip8, op8XY3)
 {
-    chip8->setMem(0x200, 0x84);
-    chip8->setMem(0x201, 0x53);
+    mem->Set(0x200, 0x84);
+    mem->Set(0x201, 0x53);
 
     chip8->setVn(4, 0x06);
     chip8->setVn(5, 0x04);
@@ -223,8 +227,8 @@ TEST(Chip8, op8XY3)
 
 TEST(Chip8, op8XY4)
 {
-    chip8->setMem(0x200, 0x84);
-    chip8->setMem(0x201, 0x54);
+    mem->Set(0x200, 0x84);
+    mem->Set(0x201, 0x54);
 
     chip8->setVn(4, 0x0A);
     chip8->setVn(5, 0x04);
@@ -238,8 +242,8 @@ TEST(Chip8, op8XY4)
     CHECK_EQUAL(0x202, chip8->getPc());
 
 
-    chip8->setMem(0x202, 0x84);
-    chip8->setMem(0x203, 0x54);
+    mem->Set(0x202, 0x84);
+    mem->Set(0x203, 0x54);
 
     chip8->setVn(4, 0xFF);
     chip8->setVn(5, 0x0F);
@@ -256,8 +260,8 @@ TEST(Chip8, op8XY4)
 
 TEST(Chip8, op8XY5)
 {
-    chip8->setMem(0x200, 0x84);
-    chip8->setMem(0x201, 0x55);
+    mem->Set(0x200, 0x84);
+    mem->Set(0x201, 0x55);
 
     chip8->setVn(4, 0x0A);
     chip8->setVn(5, 0x04);
@@ -271,8 +275,8 @@ TEST(Chip8, op8XY5)
     CHECK_EQUAL(0x202, chip8->getPc());
 
 
-    chip8->setMem(0x202, 0x84);
-    chip8->setMem(0x203, 0x55);
+    mem->Set(0x202, 0x84);
+    mem->Set(0x203, 0x55);
 
     chip8->setVn(4, 0x06);
     chip8->setVn(5, 0x0F);
@@ -289,8 +293,8 @@ TEST(Chip8, op8XY5)
 
 TEST(Chip8, op8XY6)
 {
-    chip8->setMem(0x200, 0x84);
-    chip8->setMem(0x201, 0x56);
+    mem->Set(0x200, 0x84);
+    mem->Set(0x201, 0x56);
 
     chip8->setVn(4, 0x0A);
     chip8->setVn(0xF, 0xFF);
@@ -303,8 +307,8 @@ TEST(Chip8, op8XY6)
     CHECK_EQUAL(0x202, chip8->getPc());
 
 
-    chip8->setMem(0x202, 0x84);
-    chip8->setMem(0x203, 0x56);
+    mem->Set(0x202, 0x84);
+    mem->Set(0x203, 0x56);
 
     chip8->setVn(4, 0x07);
     chip8->setVn(0xF, 0xFF);
@@ -320,8 +324,8 @@ TEST(Chip8, op8XY6)
 
 TEST(Chip8, op8XY7)
 {
-    chip8->setMem(0x200, 0x84);
-    chip8->setMem(0x201, 0x57);
+    mem->Set(0x200, 0x84);
+    mem->Set(0x201, 0x57);
 
     chip8->setVn(5, 0x0A);
     chip8->setVn(4, 0x04);
@@ -335,8 +339,8 @@ TEST(Chip8, op8XY7)
     CHECK_EQUAL(0x202, chip8->getPc());
 
 
-    chip8->setMem(0x202, 0x84);
-    chip8->setMem(0x203, 0x57);
+    mem->Set(0x202, 0x84);
+    mem->Set(0x203, 0x57);
 
     chip8->setVn(5, 0x06);
     chip8->setVn(4, 0x0F);
@@ -353,8 +357,8 @@ TEST(Chip8, op8XY7)
 
 TEST(Chip8, op8XYE)
 {
-    chip8->setMem(0x200, 0x84);
-    chip8->setMem(0x201, 0x5E);
+    mem->Set(0x200, 0x84);
+    mem->Set(0x201, 0x5E);
 
     chip8->setVn(4, 0x0A);
     chip8->setVn(0xF, 0xFF);
@@ -367,8 +371,8 @@ TEST(Chip8, op8XYE)
     CHECK_EQUAL(0x202, chip8->getPc());
 
 
-    chip8->setMem(0x202, 0x84);
-    chip8->setMem(0x203, 0x5E);
+    mem->Set(0x202, 0x84);
+    mem->Set(0x203, 0x5E);
 
     chip8->setVn(4, 0xF0);
     chip8->setVn(0xF, 0xFF);
@@ -384,8 +388,8 @@ TEST(Chip8, op8XYE)
 
 TEST(Chip8, op9XY0)
 {
-    chip8->setMem(0x200, 0x94);
-    chip8->setMem(0x201, 0x55);
+    mem->Set(0x200, 0x94);
+    mem->Set(0x201, 0x55);
 
     chip8->setVn(4, 0xA0);
     chip8->setVn(5, 0xA5);
@@ -393,8 +397,8 @@ TEST(Chip8, op9XY0)
     chip8->emulateCycle();
     CHECK_EQUAL(0x0204, chip8->getPc());
 
-    chip8->setMem(0x204, 0x94);
-    chip8->setMem(0x205, 0x55);
+    mem->Set(0x204, 0x94);
+    mem->Set(0x205, 0x55);
 
     chip8->setVn(4, 0xA5);
     chip8->setVn(5, 0xA5);
@@ -405,8 +409,8 @@ TEST(Chip8, op9XY0)
 
 TEST(Chip8, opANNN)
 {
-    chip8->setMem(0x200, 0xA4);
-    chip8->setMem(0x201, 0x55);
+    mem->Set(0x200, 0xA4);
+    mem->Set(0x201, 0x55);
 
     chip8->emulateCycle();
     CHECK_EQUAL(0x0455, chip8->getI());
@@ -415,8 +419,8 @@ TEST(Chip8, opANNN)
 
 TEST(Chip8, opBNNN)
 {
-    chip8->setMem(0x200, 0xB4);
-    chip8->setMem(0x201, 0xA4);
+    mem->Set(0x200, 0xB4);
+    mem->Set(0x201, 0xA4);
 
     chip8->setVn(0, 0x4);
 
@@ -431,11 +435,11 @@ TEST(Chip8, opCXNN)
 
 TEST(Chip8, opDXYN)
 {
-    chip8->setMem(0x200, 0xD0);
-    chip8->setMem(0x201, 0x12);
+    mem->Set(0x200, 0xD0);
+    mem->Set(0x201, 0x12);
 
-    chip8->setMem(0x300, 0xE0);
-    chip8->setMem(0x301, 0x90);
+    mem->Set(0x300, 0xE0);
+    mem->Set(0x301, 0x90);
 
     chip8->setI(0x300);
 
@@ -460,10 +464,10 @@ TEST(Chip8, opDXYN)
     CHECK_EQUAL(0, chip8->getVn(0xF));
 
 
-    chip8->setMem(0x202, 0xD0);
-    chip8->setMem(0x203, 0x12);
+    mem->Set(0x202, 0xD0);
+    mem->Set(0x203, 0x12);
 
-    chip8->setMem(0x302, 0x20);
+    mem->Set(0x302, 0x20);
 
     chip8->setI(0x302);
 
@@ -485,8 +489,8 @@ TEST(Chip8, opDXYN)
 
 TEST(Chip8, opEX9E)
 {
-    chip8->setMem(0x200, 0xE1);
-    chip8->setMem(0x201, 0x9E);
+    mem->Set(0x200, 0xE1);
+    mem->Set(0x201, 0x9E);
 
     key->Push(0x2);
 
@@ -495,8 +499,8 @@ TEST(Chip8, opEX9E)
     chip8->emulateCycle();
     CHECK_EQUAL(0x204, chip8->getPc());
 
-    chip8->setMem(0x204, 0xE2);
-    chip8->setMem(0x201, 0x9E);
+    mem->Set(0x204, 0xE2);
+    mem->Set(0x201, 0x9E);
 
     key->Release(0x3);
 
@@ -508,8 +512,8 @@ TEST(Chip8, opEX9E)
 
 TEST(Chip8, opEXA1)
 {
-    chip8->setMem(0x200, 0xE1);
-    chip8->setMem(0x201, 0xA1);
+    mem->Set(0x200, 0xE1);
+    mem->Set(0x201, 0xA1);
 
     key->Release(0x2);
 
@@ -518,8 +522,8 @@ TEST(Chip8, opEXA1)
     chip8->emulateCycle();
     CHECK_EQUAL(0x204, chip8->getPc());
 
-    chip8->setMem(0x204, 0xE2);
-    chip8->setMem(0x201, 0xA1);
+    mem->Set(0x204, 0xE2);
+    mem->Set(0x201, 0xA1);
 
     key->Push(0x3);
 
@@ -531,8 +535,8 @@ TEST(Chip8, opEXA1)
 
 TEST(Chip8, opFX07)
 {
-    chip8->setMem(0x200, 0xF5);
-    chip8->setMem(0x201, 0x07);
+    mem->Set(0x200, 0xF5);
+    mem->Set(0x201, 0x07);
 
     chip8->setDelayTimer(0x9F);
 
@@ -544,8 +548,8 @@ TEST(Chip8, opFX07)
 
 TEST(Chip8, opFX0A)
 {
-    chip8->setMem(0x200, 0xF5);
-    chip8->setMem(0x201, 0x0A);
+    mem->Set(0x200, 0xF5);
+    mem->Set(0x201, 0x0A);
 
     chip8->emulateCycle();
     CHECK_EQUAL(0x0200, chip8->getPc());
@@ -560,8 +564,8 @@ TEST(Chip8, opFX0A)
 
 TEST(Chip8, opFX15)
 {
-    chip8->setMem(0x200, 0xF5);
-    chip8->setMem(0x201, 0x15);
+    mem->Set(0x200, 0xF5);
+    mem->Set(0x201, 0x15);
 
     chip8->setVn(0x5, 0x12);
 
@@ -573,8 +577,8 @@ TEST(Chip8, opFX15)
 
 TEST(Chip8, opFX1E)
 {
-    chip8->setMem(0x200, 0xF5);
-    chip8->setMem(0x201, 0x1E);
+    mem->Set(0x200, 0xF5);
+    mem->Set(0x201, 0x1E);
 
     chip8->setVn(0x5, 0x5);
     chip8->setI(0x5);

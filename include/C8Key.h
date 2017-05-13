@@ -8,8 +8,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 class C8Key
-  {
-  public:
+{
+public:
     explicit C8Key();
     virtual ~C8Key();
 
@@ -17,7 +17,7 @@ class C8Key
     void Release(unsigned char k);
     bool Get(unsigned char k);
 
-  private:
+private:
 
     C8Key(const C8Key&);
     C8Key& operator=(const C8Key&);
@@ -29,6 +29,6 @@ class C8Key
         return 0x1 << k;
     }
 
-  };
+};
 
 #endif  // D_C8Key_H
