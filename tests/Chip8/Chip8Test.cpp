@@ -427,5 +427,54 @@ TEST(Chip8, opCXNN)
 
 TEST(Chip8, opDXYN)
 {
+    chip8->setMem(0x200, 0xD0);
+    chip8->setMem(0x201, 0x12);
 
+    chip8->setMem(0x300, 0xE0);
+    chip8->setMem(0x301, 0x90);
+
+    chip8->setI(0x300);
+
+    chip8->setVn(0, 0x5);
+    chip8->setVn(1, 0x0);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x202, chip8->getPc());
+
+    CHECK_EQUAL(0x300, chip8->getI());
+
+    CHECK(disp->getPixel(5, 0));
+    CHECK(disp->getPixel(6, 0));
+    CHECK(disp->getPixel(7, 0));
+    CHECK(!disp->getPixel(8, 0));
+
+    CHECK(disp->getPixel(5, 1));
+    CHECK(!disp->getPixel(6, 1));
+    CHECK(!disp->getPixel(7, 1));
+    CHECK(disp->getPixel(8, 1));
+
+    CHECK_EQUAL(0, chip8->getVn(0xF));
+
+
+    chip8->setMem(0x202, 0xD0);
+    chip8->setMem(0x203, 0x12);
+
+    chip8->setMem(0x302, 0x20);
+
+    chip8->setI(0x302);
+
+    chip8->setVn(0, 0x5);
+    chip8->setVn(1, 0x0);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x204, chip8->getPc());
+
+    CHECK_EQUAL(0x302, chip8->getI());
+
+    CHECK(disp->getPixel(5, 0));
+    CHECK(disp->getPixel(6, 0));
+    CHECK(!disp->getPixel(7, 0));
+    CHECK(!disp->getPixel(8, 0));
+
+    CHECK_EQUAL(1, chip8->getVn(0xF));
 }

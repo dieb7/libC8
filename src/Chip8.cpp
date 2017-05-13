@@ -174,6 +174,23 @@ void Chip8::emulateCycle()
         V[(opcode & 0x0F00) >> 8] = (rand() % 0xFF) & (opcode & 0x00FF);
         pc += 2;
         break;
+    case 0xD000:
+        {
+            unsigned int x = (opcode & 0x0F00) >> 8;
+            unsigned int y = (opcode & 0x00F0) >> 4;
+            unsigned int n = (opcode & 0x000F);
+
+            bool flip = false;
+
+            for (unsigned int i = 0; i < n; i++) {
+                flip |= disp->Draw(V[x], V[y] + i, getMem(I + i));
+            }
+
+            V[0xF] = flip ? 1 : 0;
+
+            pc += 2;
+        }
+        break;
     default:
         break;
     }
