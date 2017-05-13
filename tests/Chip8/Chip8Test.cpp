@@ -505,3 +505,26 @@ TEST(Chip8, opEX9E)
     chip8->emulateCycle();
     CHECK_EQUAL(0x206, chip8->getPc());
 }
+
+TEST(Chip8, opEXA1)
+{
+    chip8->setMem(0x200, 0xE1);
+    chip8->setMem(0x201, 0xA1);
+
+    key->Release(0x2);
+
+    chip8->setVn(0x1, 0x2);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x204, chip8->getPc());
+
+    chip8->setMem(0x204, 0xE2);
+    chip8->setMem(0x201, 0xA1);
+
+    key->Push(0x3);
+
+    chip8->setVn(0x2, 0x3);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x206, chip8->getPc());
+}

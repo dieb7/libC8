@@ -196,6 +196,11 @@ void Chip8::emulateCycle()
                 pc += 2;
             }
             break;
+        case 0x00A1:
+            if (!key->Get(getVn((opcode & 0x0F00) >> 8))) {
+                pc += 2;
+            }
+            break;
         default:
             break;
         }
