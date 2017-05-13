@@ -227,7 +227,7 @@ void Chip8::emulateCycle()
             }
             break;
         case 0x0015:
-
+            setDelayTimer(getVn((opcode & 0x0F00) >> 8));
             break;
         case 0x0018:
 
