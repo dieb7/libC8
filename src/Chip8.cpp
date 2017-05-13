@@ -230,7 +230,7 @@ void Chip8::emulateCycle()
             setDelayTimer(getVn((opcode & 0x0F00) >> 8));
             break;
         case 0x0018:
-
+            setSoundTimer(getVn((opcode & 0x0F00) >> 8));
             break;
         case 0x001E:
 

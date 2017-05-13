@@ -570,3 +570,16 @@ TEST(Chip8, opFX15)
 
     CHECK_EQUAL(0x12, chip8->getDelayTimer());
 }
+
+TEST(Chip8, opFX18)
+{
+    chip8->setMem(0x200, 0xF5);
+    chip8->setMem(0x201, 0x18);
+
+    chip8->setVn(0x5, 0x12);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x0202, chip8->getPc());
+
+    CHECK_EQUAL(0x12, chip8->getSoundTimer());
+}
