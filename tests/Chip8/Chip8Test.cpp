@@ -528,3 +528,16 @@ TEST(Chip8, opEXA1)
     chip8->emulateCycle();
     CHECK_EQUAL(0x206, chip8->getPc());
 }
+
+TEST(Chip8, opFX07)
+{
+    chip8->setMem(0x200, 0xF5);
+    chip8->setMem(0x201, 0x07);
+
+    chip8->setDelayTimer(0x9F);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x0202, chip8->getPc());
+
+    CHECK_EQUAL(0x9F, chip8->getVn(0x5));
+}

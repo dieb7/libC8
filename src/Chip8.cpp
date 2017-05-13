@@ -207,6 +207,40 @@ void Chip8::emulateCycle()
         pc += 2;
     }
     break;
+    case 0xF000:
+        switch(opcode & 0x00FF) {
+        case 0x0007:
+            setVn((opcode & 0x0F00) >> 8, getDelayTimer());
+            break;
+        case 0x000A:
+
+            break;
+        case 0x0015:
+
+            break;
+        case 0x0018:
+
+            break;
+        case 0x001E:
+
+            break;
+        case 0x0029:
+
+            break;
+        case 0x0033:
+
+            break;
+        case 0x0055:
+
+            break;
+        case 0x0065:
+
+            break;
+        default:
+            break;
+        }
+        pc += 2;
+        break;
     default:
         break;
     }

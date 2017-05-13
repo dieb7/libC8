@@ -64,6 +64,24 @@ public:
         return I;
     };
 
+    unsigned char getDelayTimer()
+    {
+        return delayTimer;
+    };
+    void setDelayTimer(unsigned char d)
+    {
+        delayTimer = d;
+    };
+
+    unsigned char getSoundTimer()
+    {
+        return soundTimer;
+    };
+    void setSoundTimer(unsigned char s)
+    {
+        soundTimer = s;
+    };
+
 private:
 
     Chip8(const Chip8&);
