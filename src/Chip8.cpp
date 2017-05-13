@@ -212,29 +212,34 @@ void Chip8::emulateCycle()
         case 0x0007:
             setVn((opcode & 0x0F00) >> 8, getDelayTimer());
             break;
-        case 0x000A:
-            {
-                int i = 0;
-                for (; i < 0xF; i++) {
-                    if (key->Get(i)) {
-                        setVn((opcode & 0x0F00) >> 8, i);
-                        break;
-                    }
-                }
-                if (i == 0xF) {
-                    pc -= 2;
+        case 0x000A: {
+            int i = 0;
+            for (; i < 0xF; i++) {
+                if (key->Get(i)) {
+                    setVn((opcode & 0x0F00) >> 8, i);
+                    break;
                 }
             }
-            break;
+            if (i == 0xF) {
+                pc -= 2;
+            }
+        }
+        break;
         case 0x0015:
             setDelayTimer(getVn((opcode & 0x0F00) >> 8));
             break;
         case 0x0018:
             setSoundTimer(getVn((opcode & 0x0F00) >> 8));
             break;
-        case 0x001E:
-            I += getVn((opcode & 0x0F00) >> 8);
-            break;
+        case 0x001E: {
+            unsigned int temp = I + getVn((opcode & 0x0F00) >> 8);
+            I = temp & 0xFFF;
+            if (temp > 0xFFF) {
+                V[0xF] = 0x1;
+            }
+        }
+
+        break;
         case 0x0029:
 
             break;

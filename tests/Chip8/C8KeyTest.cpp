@@ -5,16 +5,14 @@
 
 TEST_GROUP(C8Key)
 {
-  C8Key* c8Key;
+    C8Key* c8Key;
 
-  void setup()
-  {
-    c8Key = new C8Key();
-  }
-  void teardown()
-  {
-    delete c8Key;
-  }
+    void setup() {
+        c8Key = new C8Key();
+    }
+    void teardown() {
+        delete c8Key;
+    }
 };
 
 TEST(C8Key, setGetKey)
