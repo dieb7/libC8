@@ -29,10 +29,10 @@ C8Mem::~C8Mem()
 
 unsigned char C8Mem::Get(unsigned int address)
 {
-    if (address < sizeof(fontSet)) {
-        return fontSet[address];
-    } else if (address > 0x1FF && address < 0x1000) {
+    if (address > 0x1FF && address < 0x1000) {
         return mem[address - 0x200];
+    } else if (address < sizeof(fontSet)) {
+        return fontSet[address];
     }
     return 0x00;
 }
