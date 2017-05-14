@@ -601,3 +601,19 @@ TEST(Chip8, opFX29)
 
     CHECK_EQUAL(0x19, chip8->getI());
 }
+
+TEST(Chip8, opFX33)
+{
+    mem->Set(0x200, 0xF5);
+    mem->Set(0x201, 0x33);
+
+    chip8->setVn(0x5, 0xFF);
+    chip8->setI(0x300);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x0202, chip8->getPc());
+
+    CHECK_EQUAL(0x02, mem->Get(chip8->getI()));
+    CHECK_EQUAL(0x05, mem->Get(chip8->getI() + 1));
+    CHECK_EQUAL(0x05, mem->Get(chip8->getI() + 2));
+}

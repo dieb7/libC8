@@ -206,8 +206,12 @@ void Chip8::emulateCycle()
         case 0x0029:
             I = getVn((opcode & 0x0F00) >> 8) * 5;
             break;
-        case 0x0033:
-
+        case 0x0033:{
+                unsigned char temp = V[(opcode & 0x0F00) >> 8];
+                mem->Set(I, temp / 100);
+                mem->Set(I + 1, (temp / 10) % 10);
+                mem->Set(I + 2, (temp % 100) % 10);
+            }
             break;
         case 0x0055:
 
