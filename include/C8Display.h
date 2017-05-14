@@ -20,10 +20,20 @@ public:
     void setPixel(unsigned char x, unsigned char y, bool val);
     bool getPixel(unsigned char x, unsigned char y);
 
-private:
+    bool shouldDraw()
+    {
+        return drawFlag;
+    };
+    void drawn()
+    {
+        drawFlag = false;
+    };
 
+private:
     C8Display(const C8Display&);
     C8Display& operator=(const C8Display&);
+
+    bool drawFlag;
 
     unsigned char  mem[8][32];
 

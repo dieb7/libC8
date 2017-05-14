@@ -3,6 +3,7 @@
 C8Display::C8Display()
 {
     Clear();
+    drawFlag = false;
 }
 
 C8Display::~C8Display()
@@ -16,6 +17,7 @@ void C8Display::Clear()
             mem[i][j] = 0;
         }
     }
+    drawFlag = true;
 }
 
 bool C8Display::Draw(unsigned char x, unsigned char y, unsigned char data)
@@ -39,6 +41,7 @@ bool C8Display::Draw(unsigned char x, unsigned char y, unsigned char data)
             flip1 = (temp | mem[xbyte + 1][y]) < 0xFF;
         }
     }
+    drawFlag = true;
 
     return flip0 | flip1;
 }
