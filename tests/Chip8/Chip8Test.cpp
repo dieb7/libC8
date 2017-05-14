@@ -642,3 +642,28 @@ TEST(Chip8, opFX55)
     CHECK_EQUAL(0x04, mem->Get(chip8->getI() + 4));
     CHECK_EQUAL(0x05, mem->Get(chip8->getI() + 5));
 }
+
+TEST(Chip8, opFX65)
+{
+    mem->Set(0x200, 0xF5);
+    mem->Set(0x201, 0x65);
+
+    mem->Set(0x300, 0x0);
+    mem->Set(0x301, 0x1);
+    mem->Set(0x302, 0x2);
+    mem->Set(0x303, 0x3);
+    mem->Set(0x304, 0x4);
+    mem->Set(0x305, 0x5);
+
+    chip8->setI(0x300);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x0202, chip8->getPc());
+
+    CHECK_EQUAL(0x00, chip8->getVn(0x0));
+    CHECK_EQUAL(0x01, chip8->getVn(0x1));
+    CHECK_EQUAL(0x02, chip8->getVn(0x2));
+    CHECK_EQUAL(0x03, chip8->getVn(0x3));
+    CHECK_EQUAL(0x04, chip8->getVn(0x4));
+    CHECK_EQUAL(0x05, chip8->getVn(0x5));
+}

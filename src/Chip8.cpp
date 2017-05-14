@@ -220,9 +220,13 @@ void Chip8::emulateCycle()
             }
         }
         break;
-        case 0x0065:
-
-            break;
+        case 0x0065: {
+            unsigned char temp = (opcode & 0x0F00) >> 8;
+            for (unsigned char i = 0; i < temp + 1; i++) {
+                V[i] = mem->Get(I + i);
+            }
+        }
+        break;
         default:
             break;
         }
