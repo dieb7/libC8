@@ -202,10 +202,9 @@ void Chip8::emulateCycle()
                 V[0xF] = 0x1;
             }
         }
-
         break;
         case 0x0029:
-
+            I = getVn((opcode & 0x0F00) >> 8) * 5;
             break;
         case 0x0033:
 

@@ -588,3 +588,16 @@ TEST(Chip8, opFX1E)
 
     CHECK_EQUAL(0x000A, chip8->getI());
 }
+
+TEST(Chip8, opFX29)
+{
+    mem->Set(0x200, 0xF5);
+    mem->Set(0x201, 0x29);
+
+    chip8->setVn(0x5, 0x5);
+
+    chip8->emulateCycle();
+    CHECK_EQUAL(0x0202, chip8->getPc());
+
+    CHECK_EQUAL(0x19, chip8->getI());
+}
