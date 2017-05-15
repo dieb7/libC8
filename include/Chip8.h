@@ -5,6 +5,7 @@
 #include "C8Stack.h"
 #include "C8Display.h"
 #include "C8Key.h"
+#include "C8Timer.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -38,6 +39,16 @@ public:
         key = k;
     };
 
+    void setDelayTimer(C8Timer * t)
+    {
+        delayTimer = t;
+    }
+
+    void setSoundTimer(C8Timer * t)
+    {
+        soundTimer = t;
+    }
+
     void emulateCycle();
 
     unsigned short getPc()
@@ -67,41 +78,22 @@ public:
         return I;
     };
 
-    unsigned char getDelayTimer()
-    {
-        return delayTimer;
-    };
-    void setDelayTimer(unsigned char d)
-    {
-        delayTimer = d;
-    };
-
-    unsigned char getSoundTimer()
-    {
-        return soundTimer;
-    };
-    void setSoundTimer(unsigned char s)
-    {
-        soundTimer = s;
-    };
-
 private:
 
     Chip8(const Chip8&);
     Chip8& operator=(const Chip8&);
 
     C8Mem * mem;
-
-    unsigned short pc;
     C8Display * disp;
     C8Key * key;
+    C8Stack * st;
+    C8Timer * delayTimer;
+    C8Timer * soundTimer;
+
+    unsigned short pc;
     unsigned short opcode;
     unsigned short I;
-
-    unsigned char  V[16];
-    C8Stack * st;
-    unsigned char  delayTimer;
-    unsigned char  soundTimer;
+    unsigned char V[16];
 };
 
 #endif  // D_Chip8_H

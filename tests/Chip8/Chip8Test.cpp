@@ -10,6 +10,8 @@ TEST_GROUP(Chip8)
     C8Stack* st;
     C8Display* disp;
     C8Key* key;
+    C8Timer *delayTimer;
+    C8Timer *soundTimer;
 
     void setup() {
         chip8 = new Chip8();
@@ -17,10 +19,15 @@ TEST_GROUP(Chip8)
         st = new C8Stack();
         disp = new C8Display();
         key = new C8Key();
+        delayTimer = new C8Timer();
+        soundTimer = new C8Timer();
+
         chip8->setMem(mem);
         chip8->setStack(st);
         chip8->setDisplay(disp);
         chip8->setKey(key);
+        chip8->setDelayTimer(delayTimer);
+        chip8->setSoundTimer(soundTimer);
     }
     void teardown() {
         delete chip8;
@@ -28,6 +35,8 @@ TEST_GROUP(Chip8)
         delete st;
         delete disp;
         delete key;
+        delete delayTimer;
+        delete soundTimer;
     }
 };
 
@@ -538,7 +547,7 @@ TEST(Chip8, opFX07)
     mem->Set(0x200, 0xF5);
     mem->Set(0x201, 0x07);
 
-    chip8->setDelayTimer(0x9F);
+    delayTimer->SetValue(0x9F);
 
     chip8->emulateCycle();
     CHECK_EQUAL(0x0202, chip8->getPc());
@@ -572,7 +581,7 @@ TEST(Chip8, opFX15)
     chip8->emulateCycle();
     CHECK_EQUAL(0x0202, chip8->getPc());
 
-    CHECK_EQUAL(0x12, chip8->getDelayTimer());
+    CHECK_EQUAL(0x12, delayTimer->GetValue());
 }
 
 TEST(Chip8, opFX1E)

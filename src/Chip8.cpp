@@ -9,14 +9,16 @@ void clearMem(unsigned char * buff, unsigned int buffSize)
 
 Chip8::Chip8()
 {
-    st = NULL;
-
     pc = 0x200;
     opcode = 0;
     I = 0;
 
-    delayTimer = 0;
-    soundTimer = 0;
+//    mem = nullptr;
+//    disp = nullptr;
+//    key = nullptr;
+//    st = nullptr;
+//    delayTimer = nullptr;
+//    soundTimer = nullptr;
 }
 
 Chip8::~Chip8()
@@ -174,7 +176,7 @@ void Chip8::emulateCycle()
     case 0xF000:
         switch(opcode & 0x00FF) {
         case 0x0007:
-            setVn((opcode & 0x0F00) >> 8, getDelayTimer());
+            setVn((opcode & 0x0F00) >> 8, delayTimer->GetValue());
             break;
         case 0x000A: {
             int i = 0;
@@ -190,10 +192,10 @@ void Chip8::emulateCycle()
         }
         break;
         case 0x0015:
-            setDelayTimer(getVn((opcode & 0x0F00) >> 8));
+            delayTimer->SetValue(getVn((opcode & 0x0F00) >> 8));
             break;
         case 0x0018:
-            setSoundTimer(getVn((opcode & 0x0F00) >> 8));
+            soundTimer->SetValue(getVn((opcode & 0x0F00) >> 8));
             break;
         case 0x001E: {
             unsigned int temp = I + getVn((opcode & 0x0F00) >> 8);
