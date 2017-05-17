@@ -1,4 +1,4 @@
-#include "Chip8.h"
+#include "C8.h"
 
 void clearMem(unsigned char * buff, unsigned int buffSize)
 {
@@ -7,7 +7,7 @@ void clearMem(unsigned char * buff, unsigned int buffSize)
     }
 }
 
-Chip8::Chip8()
+C8::C8()
 {
     pc = 0x200;
     opcode = 0;
@@ -21,12 +21,12 @@ Chip8::Chip8()
 //    soundTimer = nullptr;
 }
 
-Chip8::~Chip8()
+C8::~C8()
 {
 
 }
 
-void Chip8::emulateCycle()
+void C8::emulateCycle()
 {
     // fetch opcode
     opcode = (unsigned short)(mem->Get(pc) << 8 | mem->Get(pc + 1));

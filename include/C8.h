@@ -13,11 +13,11 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-class Chip8
+class C8
 {
 public:
-    explicit Chip8();
-    virtual ~Chip8();
+    explicit C8();
+    virtual ~C8();
 
     void setMem(C8Mem * m)
     {
@@ -80,8 +80,8 @@ public:
 
 private:
 
-    Chip8(const Chip8&);
-    Chip8& operator=(const Chip8&);
+    C8(const C8&);
+    C8& operator=(const C8&);
 
     C8Mem * mem;
     C8Display * disp;

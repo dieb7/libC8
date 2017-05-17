@@ -2,7 +2,7 @@
 SILENCE = @
 
 #---- Outputs ----#
-COMPONENT_NAME = libMyC8
+COMPONENT_NAME = libC8
 #Set this to @ to keep the makefile quiet
 SILENCE = @
 

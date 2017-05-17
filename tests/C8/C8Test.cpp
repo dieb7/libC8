@@ -1,11 +1,11 @@
-#include "Chip8.h"
+#include "C8.h"
 
 //CppUTest includes should be after your and system includes
 #include "CppUTest/TestHarness.h"
 
-TEST_GROUP(Chip8)
+TEST_GROUP(C8)
 {
-    Chip8* chip8;
+    C8* chip8;
     C8Mem* mem;
     C8Stack* st;
     C8Display* disp;
@@ -14,7 +14,7 @@ TEST_GROUP(Chip8)
     C8Timer *soundTimer;
 
     void setup() {
-        chip8 = new Chip8();
+        chip8 = new C8();
         mem = new C8Mem();
         st = new C8Stack();
         disp = new C8Display();
@@ -40,7 +40,7 @@ TEST_GROUP(Chip8)
     }
 };
 
-TEST(Chip8, op00E0)
+TEST(C8, op00E0)
 {
     mem->Set(0x200, 0x00);
     mem->Set(0x201, 0xE0);
@@ -54,7 +54,7 @@ TEST(Chip8, op00E0)
     CHECK(!disp->getPixel(2,4));
 }
 
-TEST(Chip8, op00EE)
+TEST(C8, op00EE)
 {
     st->push(0x300);
 
@@ -66,7 +66,7 @@ TEST(Chip8, op00EE)
     CHECK_EQUAL(0x302, chip8->getPc());
 }
 
-TEST(Chip8, op1NNN)
+TEST(C8, op1NNN)
 {
     mem->Set(0x200, 0x14);
     mem->Set(0x201, 0xA5);
@@ -75,7 +75,7 @@ TEST(Chip8, op1NNN)
     CHECK_EQUAL(0x04A5, chip8->getPc());
 }
 
-TEST(Chip8, op2NNN)
+TEST(C8, op2NNN)
 {
     mem->Set(0x200, 0x24);
     mem->Set(0x201, 0xA5);
@@ -86,7 +86,7 @@ TEST(Chip8, op2NNN)
     CHECK_EQUAL(0x0200, st->pop());
 }
 
-TEST(Chip8, op3NNN)
+TEST(C8, op3NNN)
 {
     mem->Set(0x200, 0x34);
     mem->Set(0x201, 0xA5);
@@ -105,7 +105,7 @@ TEST(Chip8, op3NNN)
     CHECK_EQUAL(0x0206, chip8->getPc());
 }
 
-TEST(Chip8, op4NNN)
+TEST(C8, op4NNN)
 {
     mem->Set(0x200, 0x44);
     mem->Set(0x201, 0xA5);
@@ -124,7 +124,7 @@ TEST(Chip8, op4NNN)
     CHECK_EQUAL(0x0206, chip8->getPc());
 }
 
-TEST(Chip8, op5NNN)
+TEST(C8, op5NNN)
 {
     mem->Set(0x200, 0x54);
     mem->Set(0x201, 0x55);
@@ -145,7 +145,7 @@ TEST(Chip8, op5NNN)
     CHECK_EQUAL(0x0206, chip8->getPc());
 }
 
-TEST(Chip8, op6XNN)
+TEST(C8, op6XNN)
 {
     mem->Set(0x200, 0x64);
     mem->Set(0x201, 0x55);
@@ -156,7 +156,7 @@ TEST(Chip8, op6XNN)
     CHECK_EQUAL(0x202, chip8->getPc());
 }
 
-TEST(Chip8, op7XNN)
+TEST(C8, op7XNN)
 {
     mem->Set(0x200, 0x74);
     mem->Set(0x201, 0x55);
@@ -169,7 +169,7 @@ TEST(Chip8, op7XNN)
     CHECK_EQUAL(0x202, chip8->getPc());
 }
 
-TEST(Chip8, op8XY0)
+TEST(C8, op8XY0)
 {
     mem->Set(0x200, 0x84);
     mem->Set(0x201, 0x50);
@@ -182,7 +182,7 @@ TEST(Chip8, op8XY0)
     CHECK_EQUAL(0x202, chip8->getPc());
 }
 
-TEST(Chip8, op8XY1)
+TEST(C8, op8XY1)
 {
     mem->Set(0x200, 0x84);
     mem->Set(0x201, 0x51);
@@ -199,7 +199,7 @@ TEST(Chip8, op8XY1)
     CHECK_EQUAL(0x202, chip8->getPc());
 }
 
-TEST(Chip8, op8XY2)
+TEST(C8, op8XY2)
 {
     mem->Set(0x200, 0x84);
     mem->Set(0x201, 0x52);
@@ -216,7 +216,7 @@ TEST(Chip8, op8XY2)
     CHECK_EQUAL(0x202, chip8->getPc());
 }
 
-TEST(Chip8, op8XY3)
+TEST(C8, op8XY3)
 {
     mem->Set(0x200, 0x84);
     mem->Set(0x201, 0x53);
@@ -234,7 +234,7 @@ TEST(Chip8, op8XY3)
 }
 
 
-TEST(Chip8, op8XY4)
+TEST(C8, op8XY4)
 {
     mem->Set(0x200, 0x84);
     mem->Set(0x201, 0x54);
@@ -267,7 +267,7 @@ TEST(Chip8, op8XY4)
     CHECK_EQUAL(0x204, chip8->getPc());
 }
 
-TEST(Chip8, op8XY5)
+TEST(C8, op8XY5)
 {
     mem->Set(0x200, 0x84);
     mem->Set(0x201, 0x55);
@@ -300,7 +300,7 @@ TEST(Chip8, op8XY5)
     CHECK_EQUAL(0x204, chip8->getPc());
 }
 
-TEST(Chip8, op8XY6)
+TEST(C8, op8XY6)
 {
     mem->Set(0x200, 0x84);
     mem->Set(0x201, 0x56);
@@ -331,7 +331,7 @@ TEST(Chip8, op8XY6)
     CHECK_EQUAL(0x204, chip8->getPc());
 }
 
-TEST(Chip8, op8XY7)
+TEST(C8, op8XY7)
 {
     mem->Set(0x200, 0x84);
     mem->Set(0x201, 0x57);
@@ -364,7 +364,7 @@ TEST(Chip8, op8XY7)
     CHECK_EQUAL(0x204, chip8->getPc());
 }
 
-TEST(Chip8, op8XYE)
+TEST(C8, op8XYE)
 {
     mem->Set(0x200, 0x84);
     mem->Set(0x201, 0x5E);
@@ -395,7 +395,7 @@ TEST(Chip8, op8XYE)
     CHECK_EQUAL(0x204, chip8->getPc());
 }
 
-TEST(Chip8, op9XY0)
+TEST(C8, op9XY0)
 {
     mem->Set(0x200, 0x94);
     mem->Set(0x201, 0x55);
@@ -416,7 +416,7 @@ TEST(Chip8, op9XY0)
     CHECK_EQUAL(0x0206, chip8->getPc());
 }
 
-TEST(Chip8, opANNN)
+TEST(C8, opANNN)
 {
     mem->Set(0x200, 0xA4);
     mem->Set(0x201, 0x55);
@@ -426,7 +426,7 @@ TEST(Chip8, opANNN)
     CHECK_EQUAL(0x202, chip8->getPc());
 }
 
-TEST(Chip8, opBNNN)
+TEST(C8, opBNNN)
 {
     mem->Set(0x200, 0xB4);
     mem->Set(0x201, 0xA4);
@@ -437,12 +437,12 @@ TEST(Chip8, opBNNN)
     CHECK_EQUAL(0x04A8, chip8->getPc());
 }
 
-TEST(Chip8, opCXNN)
+TEST(C8, opCXNN)
 {
     /**< @todo find a way to test this opcode */
 }
 
-TEST(Chip8, opDXYN)
+TEST(C8, opDXYN)
 {
     mem->Set(0x200, 0xD0);
     mem->Set(0x201, 0x12);
@@ -496,7 +496,7 @@ TEST(Chip8, opDXYN)
     CHECK_EQUAL(1, chip8->getVn(0xF));
 }
 
-TEST(Chip8, opEX9E)
+TEST(C8, opEX9E)
 {
     mem->Set(0x200, 0xE1);
     mem->Set(0x201, 0x9E);
@@ -519,7 +519,7 @@ TEST(Chip8, opEX9E)
     CHECK_EQUAL(0x206, chip8->getPc());
 }
 
-TEST(Chip8, opEXA1)
+TEST(C8, opEXA1)
 {
     mem->Set(0x200, 0xE1);
     mem->Set(0x201, 0xA1);
@@ -542,7 +542,7 @@ TEST(Chip8, opEXA1)
     CHECK_EQUAL(0x206, chip8->getPc());
 }
 
-TEST(Chip8, opFX07)
+TEST(C8, opFX07)
 {
     mem->Set(0x200, 0xF5);
     mem->Set(0x201, 0x07);
@@ -555,7 +555,7 @@ TEST(Chip8, opFX07)
     CHECK_EQUAL(0x9F, chip8->getVn(0x5));
 }
 
-TEST(Chip8, opFX0A)
+TEST(C8, opFX0A)
 {
     mem->Set(0x200, 0xF5);
     mem->Set(0x201, 0x0A);
@@ -571,7 +571,7 @@ TEST(Chip8, opFX0A)
     CHECK_EQUAL(0x9, chip8->getVn(0x5));
 }
 
-TEST(Chip8, opFX15)
+TEST(C8, opFX15)
 {
     mem->Set(0x200, 0xF5);
     mem->Set(0x201, 0x15);
@@ -584,7 +584,7 @@ TEST(Chip8, opFX15)
     CHECK_EQUAL(0x12, delayTimer->GetValue());
 }
 
-TEST(Chip8, opFX1E)
+TEST(C8, opFX1E)
 {
     mem->Set(0x200, 0xF5);
     mem->Set(0x201, 0x1E);
@@ -598,7 +598,7 @@ TEST(Chip8, opFX1E)
     CHECK_EQUAL(0x000A, chip8->getI());
 }
 
-TEST(Chip8, opFX29)
+TEST(C8, opFX29)
 {
     mem->Set(0x200, 0xF5);
     mem->Set(0x201, 0x29);
@@ -611,7 +611,7 @@ TEST(Chip8, opFX29)
     CHECK_EQUAL(0x19, chip8->getI());
 }
 
-TEST(Chip8, opFX33)
+TEST(C8, opFX33)
 {
     mem->Set(0x200, 0xF5);
     mem->Set(0x201, 0x33);
@@ -627,7 +627,7 @@ TEST(Chip8, opFX33)
     CHECK_EQUAL(0x05, mem->Get(chip8->getI() + 2));
 }
 
-TEST(Chip8, opFX55)
+TEST(C8, opFX55)
 {
     mem->Set(0x200, 0xF5);
     mem->Set(0x201, 0x55);
@@ -652,7 +652,7 @@ TEST(Chip8, opFX55)
     CHECK_EQUAL(0x05, mem->Get(chip8->getI() + 5));
 }
 
-TEST(Chip8, opFX65)
+TEST(C8, opFX65)
 {
     mem->Set(0x200, 0xF5);
     mem->Set(0x201, 0x65);
