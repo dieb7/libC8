@@ -17,6 +17,11 @@ public:
     void Release(unsigned char k);
     bool Get(unsigned char k);
 
+    void Clear()
+    {
+        keys = 0;
+    };
+
 private:
 
     C8Key(const C8Key&);
