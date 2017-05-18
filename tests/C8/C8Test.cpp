@@ -12,6 +12,7 @@ TEST_GROUP(C8)
     C8Key* key;
     C8Timer *delayTimer;
     C8Timer *soundTimer;
+    C8Random * random;
 
     void setup() {
         chip8 = new C8();
@@ -21,6 +22,7 @@ TEST_GROUP(C8)
         key = new C8Key();
         delayTimer = new C8Timer();
         soundTimer = new C8Timer();
+        random = new C8Random();
 
         chip8->setMem(mem);
         chip8->setStack(st);
@@ -28,6 +30,7 @@ TEST_GROUP(C8)
         chip8->setKey(key);
         chip8->setDelayTimer(delayTimer);
         chip8->setSoundTimer(soundTimer);
+        chip8->setRandom(random);
     }
     void teardown() {
         delete chip8;
@@ -37,6 +40,7 @@ TEST_GROUP(C8)
         delete key;
         delete delayTimer;
         delete soundTimer;
+        delete random;
     }
 };
 

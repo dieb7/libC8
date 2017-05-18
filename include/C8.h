@@ -6,6 +6,7 @@
 #include "C8Display.h"
 #include "C8Key.h"
 #include "C8Timer.h"
+#include "C8Random.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -49,6 +50,11 @@ public:
         soundTimer = t;
     }
 
+    void setRandom(C8Random * r)
+    {
+        random = r;
+    }
+
     void emulateCycle();
 
     unsigned short getPc()
@@ -89,6 +95,7 @@ private:
     C8Stack * st;
     C8Timer * delayTimer;
     C8Timer * soundTimer;
+    C8Random * random;
 
     unsigned short pc;
     unsigned short opcode;

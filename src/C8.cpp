@@ -140,7 +140,7 @@ void C8::emulateCycle()
         pc -= 2;
         break;
     case 0xC000:
-        V[(opcode & 0x0F00) >> 8] = (rand() % 0xFF) & (opcode & 0x00FF);
+        V[(opcode & 0x0F00) >> 8] = (random->Gen() % 0xFF) & (opcode & 0x00FF);
         break;
     case 0xD000: {
         unsigned int x = (opcode & 0x0F00) >> 8;

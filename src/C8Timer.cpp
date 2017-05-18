@@ -1,5 +1,6 @@
 #include "C8Timer.h"
 #include <sys/time.h>
+#include <cstddef>
 
 C8Timer::C8Timer()
 {
