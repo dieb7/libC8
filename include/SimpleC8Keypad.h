@@ -1,5 +1,7 @@
-#ifndef D_C8Key_H
-#define D_C8Key_H
+#ifndef D_Simple8Key_H
+#define D_Simple8Key_H
+
+#include "C8Keypad.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -7,11 +9,11 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-class C8Key
+class SimpleC8Keypad : public C8Keypad
 {
 public:
-    explicit C8Key();
-    virtual ~C8Key();
+    SimpleC8Keypad();
+    virtual ~SimpleC8Keypad();
 
     void Push(unsigned char k);
     void Release(unsigned char k);
@@ -24,9 +26,6 @@ public:
 
 private:
 
-    C8Key(const C8Key&);
-    C8Key& operator=(const C8Key&);
-
     unsigned short keys;
 
     unsigned short getMask(unsigned char k)
@@ -36,4 +35,4 @@ private:
 
 };
 
-#endif  // D_C8Key_H
+#endif  // D_Simple8Key_H

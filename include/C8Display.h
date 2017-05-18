@@ -1,42 +1,26 @@
-#ifndef D_C8Display_H
-#define D_C8Display_H
+#ifndef C8DISPLAY_H
+#define C8DISPLAY_H
 
-///////////////////////////////////////////////////////////////////////////////
-//
-//  C8Display is responsible for ...
-//
-///////////////////////////////////////////////////////////////////////////////
 
 class C8Display
 {
 public:
-    explicit C8Display();
+    C8Display();
     virtual ~C8Display();
 
-    void Clear();
+    virtual void Clear() = 0;
 
-    bool Draw(unsigned char x, unsigned char y, unsigned char data);
+    virtual bool Draw(unsigned char x, unsigned char y, unsigned char data) = 0;
 
-    void setPixel(unsigned char x, unsigned char y, bool val);
-    bool getPixel(unsigned char x, unsigned char y);
+    virtual void setPixel(unsigned char x, unsigned char y, bool val) = 0;
+    virtual bool getPixel(unsigned char x, unsigned char y) = 0;
 
-    bool shouldDraw()
-    {
-        return drawFlag;
-    };
-    void drawn()
-    {
-        drawFlag = false;
-    };
+    virtual bool shouldDraw() = 0;
+    virtual void drawn() = 0;
+
+protected:
 
 private:
-    C8Display(const C8Display&);
-    C8Display& operator=(const C8Display&);
-
-    bool drawFlag;
-
-    unsigned char  mem[8][32];
-
 };
 
-#endif  // D_C8Display_H
+#endif // C8DISPLAY_H

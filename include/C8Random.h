@@ -1,19 +1,18 @@
 #ifndef C8RANDOM_H
 #define C8RANDOM_H
 
-#include <cstdlib>
 
 class C8Random
 {
-    public:
-        C8Random();
-        virtual ~C8Random();
+public:
+    C8Random();
+    virtual ~C8Random();
 
-        int Gen() {return rand();};
+    virtual int Gen() = 0;
 
-    protected:
+protected:
 
-    private:
+private:
 };
 
 #endif // C8RANDOM_H

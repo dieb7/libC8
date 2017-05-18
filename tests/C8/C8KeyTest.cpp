@@ -1,21 +1,21 @@
-#include "C8Key.h"
+#include "SimpleC8Keypad.h"
 
 //CppUTest includes should be after your and system includes
 #include "CppUTest/TestHarness.h"
 
-TEST_GROUP(C8Key)
+TEST_GROUP(SimpleC8Keypad)
 {
-    C8Key* c8Key;
+    SimpleC8Keypad* c8Key;
 
     void setup() {
-        c8Key = new C8Key();
+        c8Key = new SimpleC8Keypad();
     }
     void teardown() {
         delete c8Key;
     }
 };
 
-TEST(C8Key, setGetKey)
+TEST(SimpleC8Keypad, setGetKey)
 {
     c8Key->Push(0);
     CHECK(c8Key->Get(0));
@@ -28,7 +28,7 @@ TEST(C8Key, setGetKey)
     CHECK(!c8Key->Get(6));
 }
 
-TEST(C8Key, outOfBounds)
+TEST(SimpleC8Keypad, outOfBounds)
 {
     c8Key->Push(16);
     CHECK(!c8Key->Get(16));

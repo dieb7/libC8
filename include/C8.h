@@ -4,7 +4,7 @@
 #include "C8Mem.h"
 #include "C8Stack.h"
 #include "C8Display.h"
-#include "C8Key.h"
+#include "C8Keypad.h"
 #include "C8Timer.h"
 #include "C8Random.h"
 
@@ -35,7 +35,7 @@ public:
         disp = d;
     };
 
-    void setKey(C8Key * k)
+    void setKey(C8Keypad * k)
     {
         key = k;
     };
@@ -91,7 +91,7 @@ private:
 
     C8Mem * mem;
     C8Display * disp;
-    C8Key * key;
+    C8Keypad * key;
     C8Stack * st;
     C8Timer * delayTimer;
     C8Timer * soundTimer;

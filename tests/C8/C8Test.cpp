@@ -1,4 +1,9 @@
 #include "C8.h"
+#include "SimpleC8Keypad.h"
+#include "SimpleC8Random.h"
+#include "SimpleC8Display.h"
+#include "SimpleC8Timer.h"
+#include "SimpleC8Mem.h"
 
 //CppUTest includes should be after your and system includes
 #include "CppUTest/TestHarness.h"
@@ -6,23 +11,23 @@
 TEST_GROUP(C8)
 {
     C8* chip8;
-    C8Mem* mem;
+    SimpleC8Mem* mem;
     C8Stack* st;
-    C8Display* disp;
-    C8Key* key;
-    C8Timer *delayTimer;
-    C8Timer *soundTimer;
-    C8Random * random;
+    SimpleC8Display* disp;
+    SimpleC8Keypad* key;
+    SimpleC8Timer *delayTimer;
+    SimpleC8Timer *soundTimer;
+    SimpleC8Random * random;
 
     void setup() {
         chip8 = new C8();
-        mem = new C8Mem();
+        mem = new SimpleC8Mem();
         st = new C8Stack();
-        disp = new C8Display();
-        key = new C8Key();
-        delayTimer = new C8Timer();
-        soundTimer = new C8Timer();
-        random = new C8Random();
+        disp = new SimpleC8Display();
+        key = new SimpleC8Keypad();
+        delayTimer = new SimpleC8Timer();
+        soundTimer = new SimpleC8Timer();
+        random = new SimpleC8Random();
 
         chip8->setMem(mem);
         chip8->setStack(st);

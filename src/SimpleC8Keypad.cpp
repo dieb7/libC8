@@ -1,30 +1,30 @@
-#include "C8Key.h"
+#include "SimpleC8Keypad.h"
 
-C8Key::C8Key()
+SimpleC8Keypad::SimpleC8Keypad()
 {
     keys = 0;
 }
 
-C8Key::~C8Key()
+SimpleC8Keypad::~SimpleC8Keypad()
 {
 }
 
 
-void C8Key::Push(unsigned char k)
+void SimpleC8Keypad::Push(unsigned char k)
 {
     if (k < 16) {
         keys |= getMask(k);
     }
 }
 
-void C8Key::Release(unsigned char k)
+void SimpleC8Keypad::Release(unsigned char k)
 {
     if (k < 16) {
         keys &= ~getMask(k);
     }
 }
 
-bool C8Key::Get(unsigned char k)
+bool SimpleC8Keypad::Get(unsigned char k)
 {
     if (k < 16) {
         return (keys & getMask(k)) > 0;

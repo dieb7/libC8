@@ -1,21 +1,21 @@
-#include "C8Display.h"
+#include "SimpleC8Display.h"
 
 //CppUTest includes should be after your and system includes
 #include "CppUTest/TestHarness.h"
 
-TEST_GROUP(C8Display)
+TEST_GROUP(SimpleC8Display)
 {
-    C8Display* c8Display;
+    SimpleC8Display* c8Display;
 
     void setup() {
-        c8Display = new C8Display();
+        c8Display = new SimpleC8Display();
     }
     void teardown() {
         delete c8Display;
     }
 };
 
-TEST(C8Display, Create)
+TEST(SimpleC8Display, Create)
 {
     for (unsigned char x = 0; x < 64; x++) {
         for (unsigned char y = 0; y < 32; y++) {
@@ -24,7 +24,7 @@ TEST(C8Display, Create)
     }
 }
 
-TEST(C8Display, setGet)
+TEST(SimpleC8Display, setGet)
 {
     c8Display->setPixel(2, 4, true);
     CHECK(c8Display->getPixel(2, 4));
@@ -39,7 +39,7 @@ TEST(C8Display, setGet)
     CHECK(!c8Display->getPixel(63, 31));
 }
 
-TEST(C8Display, drawD)
+TEST(SimpleC8Display, drawD)
 {
     c8Display->Draw(0, 0, 0xE0);
     CHECK(c8Display->getPixel(0, 0));
@@ -69,7 +69,7 @@ TEST(C8Display, drawD)
     CHECK(!c8Display->getPixel(3, 3));
 }
 
-TEST(C8Display, drawShift5)
+TEST(SimpleC8Display, drawShift5)
 {
     c8Display->Draw(5, 0, 0xE0);
     CHECK(c8Display->getPixel(5, 0));
@@ -99,13 +99,13 @@ TEST(C8Display, drawShift5)
     CHECK(!c8Display->getPixel(8, 3));
 }
 
-TEST(C8Display, outOfBounds0)
+TEST(SimpleC8Display, outOfBounds0)
 {
     c8Display->Draw(64, 0, 0xFF);
     c8Display->Draw(0, 33, 0xFF);
 }
 
-TEST(C8Display, outOfBounds1)
+TEST(SimpleC8Display, outOfBounds1)
 {
     c8Display->Draw(60, 0, 0xFF);
 
@@ -115,7 +115,7 @@ TEST(C8Display, outOfBounds1)
     CHECK(c8Display->getPixel(63, 0));
 }
 
-TEST(C8Display, flip0)
+TEST(SimpleC8Display, flip0)
 {
     CHECK(!c8Display->Draw(0, 0, 0xFF));
     CHECK(c8Display->Draw(0, 0, 0x01));
@@ -123,7 +123,7 @@ TEST(C8Display, flip0)
     CHECK(!c8Display->getPixel(7, 0));
 }
 
-TEST(C8Display, flip1)
+TEST(SimpleC8Display, flip1)
 {
     CHECK(!c8Display->Draw(0, 0, 0x55));
     CHECK(!c8Display->Draw(0, 0, 0xAA));

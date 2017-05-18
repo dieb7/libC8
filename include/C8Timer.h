@@ -1,36 +1,22 @@
-#ifndef D_C8Timer_H
-#define D_C8Timer_H
+#ifndef C8TIMER_H
+#define C8TIMER_H
 
-///////////////////////////////////////////////////////////////////////////////
-//
-//  C8Timer is responsible for ...
-//
-///////////////////////////////////////////////////////////////////////////////
 
 class C8Timer
 {
 public:
-    explicit C8Timer();
+    C8Timer();
     virtual ~C8Timer();
 
-    void SetValue(unsigned char v)
-    {
-        timerValue = v;
-    };
-    unsigned char GetValue()
-    {
-        return timerValue;
-    };
+    virtual void SetValue(unsigned char v) = 0;
 
-    void UpdateValue();
+    virtual unsigned char GetValue() = 0;
+
+    virtual void UpdateValue() = 0;
+
+protected:
 
 private:
-    long long prev;
-    unsigned char timerValue;
-
-    C8Timer(const C8Timer&);
-    C8Timer& operator=(const C8Timer&);
-
 };
 
-#endif  // D_C8Timer_H
+#endif // C8TIMER_H
